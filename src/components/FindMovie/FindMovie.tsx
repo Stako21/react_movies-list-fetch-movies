@@ -18,7 +18,7 @@ export const FindMovie: React.FC<Props> = ({ onAddMovie }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [movie, setMovie] = useState<Movie | null>(null);
 
-  const handleMovieSearch = (event: React.FormEvent<HTMLButtonElement>) => {
+  const handleMovieSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setIsLoading(true);
@@ -34,7 +34,6 @@ export const FindMovie: React.FC<Props> = ({ onAddMovie }) => {
         } else {
           setMovieData(data as MovieData);
           setErrorMessage(null);
-          setQuery('');
         }
       })
       .finally(() => {
@@ -72,7 +71,7 @@ export const FindMovie: React.FC<Props> = ({ onAddMovie }) => {
 
   return (
     <>
-      <form className="find-movie">
+      <form className="find-movie" onSubmit={handleMovieSearch}>
         <div className="field">
           <label className="label" htmlFor="movie-title">
             Movie title
@@ -110,7 +109,7 @@ export const FindMovie: React.FC<Props> = ({ onAddMovie }) => {
               data-cy="searchButton"
               type="submit"
               className={cn('button is-light', { 'is-loading': isLoading })}
-              onClick={handleMovieSearch}
+
             >
               Find a movie
             </button>
